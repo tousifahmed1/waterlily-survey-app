@@ -1,36 +1,183 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend - Waterlily Survey App
 
-## Getting Started
+Next.js 15 React application with TypeScript, Tailwind CSS, and modern UI components.
 
-First, run the development server:
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd frontend
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Copy environment file**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   cp .env.example .env
+   ```
 
-## Learn More
+2. **Configure environment variables**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   # API endpoint (default backend port)
+   NEXT_PUBLIC_API_URL=http://localhost:3000
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   # App configuration
+   NEXT_PUBLIC_APP_NAME=Waterlily Survey
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Development
 
-## Deploy on Vercel
+```bash
+# Start development server
+pnpm dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Build for production
+pnpm build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start production server
+pnpm start
+```
+
+## 🛠️ Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run Biome linter
+- `pnpm format` - Format code with Biome
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js 15 app directory
+│   ├── (auth)/            # Protected routes (requires auth)
+│   │   ├── survey/        # Survey taking interface
+│   │   └── submissions/   # View survey submissions
+│   ├── (public)/          # Public routes
+│   │   ├── login/         # User login
+│   │   └── register/      # User registration
+│   └── layout.tsx         # Root layout
+├── components/             # Reusable UI components
+│   ├── ui/                # Base UI components (shadcn/ui)
+│   ├── header.tsx         # Navigation header
+│   ├── question-card.tsx  # Survey question component
+│   └── loading.tsx        # Loading states
+├── contexts/               # React contexts
+│   └── auth/              # Authentication context
+├── lib/                    # Utility libraries
+│   ├── api.ts             # API client functions
+│   └── utils.ts           # Helper functions
+└── repositories/           # Data layer
+    ├── auth/               # Authentication services
+    ├── question/           # Question data
+    └── submission/         # Submission services
+```
+
+## 🎨 UI Components
+
+The app uses a modern component library built with:
+
+- **Radix UI** - Accessible, unstyled components
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Beautiful, accessible components
+- **Lucide React** - Icon library
+
+## 🔐 Authentication
+
+The frontend includes:
+
+- **Protected routes** - Survey and submission pages require login
+- **Auth context** - Global authentication state management
+- **JWT tokens** - Stored securely in localStorage
+- **Route guards** - Automatic redirects for unauthenticated users
+
+## 📱 Features
+
+- **Responsive design** - Works on all device sizes
+- **Survey interface** - Interactive question cards with progress tracking
+- **Form validation** - Client-side validation with Zod schemas
+- **Real-time updates** - Live form state management
+- **Accessibility** - WCAG compliant components
+
+## 🧪 Testing
+
+```bash
+# Run tests (when configured)
+pnpm test
+
+# Run tests in watch mode
+pnpm test --watch
+```
+
+## 🔧 Development Tools
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS v4
+- **Linting**: Biome
+- **State Management**: React Context + Hooks
+- **Forms**: React Hook Form + Zod validation
+
+## 🚀 Deployment
+
+### Build for Production
+
+```bash
+# Create production build
+pnpm build
+
+# Start production server
+pnpm start
+```
+
+### Environment Variables
+
+Ensure these are set in production:
+
+- `NEXT_PUBLIC_API_URL` - Backend API endpoint
+- `NEXT_PUBLIC_APP_NAME` - Application name
+
+## 📱 Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## 🔍 Troubleshooting
+
+### Common Issues
+
+1. **API connection failed**
+
+   - Check `NEXT_PUBLIC_API_URL` in `.env`
+   - Ensure backend server is running
+   - Check CORS settings on backend
+
+2. **Build errors**
+
+   - Clear `.next` folder: `rm -rf .next`
+   - Reinstall dependencies: `pnpm install`
+   - Check TypeScript errors: `pnpm build`
+
+3. **Styling issues**
+   - Ensure Tailwind CSS is properly configured
+   - Check PostCSS configuration
+   - Verify component imports
+
+## 📚 Additional Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Radix UI Documentation](https://www.radix-ui.com/)
+- [React Hook Form Documentation](https://react-hook-form.com/)

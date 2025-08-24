@@ -1,119 +1,169 @@
-# 🚀 Express TypeScript Boilerplate 2025
+# Backend - Waterlily Survey App
 
-[![CI](https://github.com/edwinhern/express-typescript/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/edwinhern/express-typescript-2024/actions/workflows/ci.yml)
+Express.js backend API server with TypeScript, Prisma ORM, and OpenAPI documentation.
 
-```code
-Hey There! 🙌
-🤾 that ⭐️ button if you like this boilerplate.
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended) or npm
+- SQLite (default) or PostgreSQL
+
+### Installation
+
+```bash
+cd backend
+pnpm install
 ```
 
-## 🌟 Introduction
+### Environment Setup
 
-Welcome to Express TypeScript Boilerplate 2025 – a simple and ready-to-use starting point for building backend web services with Express.js and TypeScript.
+1. **Copy environment file**
 
-## 💡 Why We Made This
+   ```bash
+   cp .env.example .env
+   ```
 
-This starter kit helps you:
+2. **Configure environment variables**
 
-- ✨ Start new projects faster
-- 📊 Write clean, consistent code
-- ⚡ Build things quickly
-- 🛡️ Follow best practices for security and testing
+   ```bash
+   # Database
+   DATABASE_URL="file:./dev.db"
 
-## 🚀 What's Included
+   # JWT
+   JWT_SECRET="your-secret-key"
+   JWT_EXPIRES_IN="24h"
 
-- 📁 Well-organized folders: Files grouped by feature so you can find things easily
-- 💨 Fast development: Quick code running with `tsx` and error checking with `tsc`
-- 🌐 Latest Node.js: Uses the newest stable Node.js version from `.tool-versions`
-- 🔧 Safe settings: Environment settings checked with Zod to prevent errors
-- 🔗 Short import paths: Clean code with easy imports using path shortcuts
-- 🔄 Auto-updates: Keeps dependencies up-to-date with Renovate
-- 🔒 Better security: Built-in protection with Helmet and CORS settings
-- 📊 Easy tracking: Built-in logging with `pino-http`
-- 🧪 Ready-to-test: Testing tools with Vitest and Supertest already set up
-- ✅ Clean code: Consistent coding style with `Biomejs`
-- 📃 Standard responses: Unified API responses using `ServiceResponse`
-- 🐳 Easy deployment: Ready for Docker containers
-- 📝 Input checking: Request validation using Zod
-- 🧩 API browser: Interactive API docs with Swagger UI
+   # Server
+   PORT=3001
+   NODE_ENV=development
+   ```
 
-## 🛠️ Getting Started
+### Database Setup
 
-### Video Demo
+```bash
+# Generate Prisma client
+pnpm prisma generate
 
-For a visual guide, watch the [video demo](https://github.com/user-attachments/assets/b1698dac-d582-45a0-8d61-31131732b74e) to see the setup and running of the project.
+# Push schema to database
+pnpm prisma db push
 
-### Step-by-Step Guide
-
-#### Step 1: 🚀 Initial Setup
-
-- Clone the repository: `git clone https://github.com/edwinhern/express-typescript.git`
-- Navigate: `cd express-typescript`
-- Install dependencies: `pnpm install`
-
-#### Step 2: ⚙️ Environment Configuration
-
-- Create `.env`: Copy `.env.template` to `.env`
-- Update `.env`: Fill in necessary environment variables
-
-#### Step 3: 🏃‍♂️ Running the Project
-
-- Development Mode: `pnpm start:dev`
-- Building: `pnpm build`
-- Production Mode: Set `NODE_ENV="production"` in `.env` then `pnpm build && pnpm start:prod`
-
-## 🤝 Feedback and Contributions
-
-We'd love to hear your feedback and suggestions for further improvements. Feel free to contribute and join us in making backend development cleaner and faster!
-
-🎉 Happy coding!
-
-## 📁 Folder Structure
-
-```code
-├── biome.json
-├── Dockerfile
-├── LICENSE
-├── package.json
-├── pnpm-lock.yaml
-├── README.md
-├── src
-│   ├── api
-│   │   ├── healthCheck
-│   │   │   ├── __tests__
-│   │   │   │   └── healthCheckRouter.test.ts
-│   │   │   └── healthCheckRouter.ts
-│   │   └── user
-│   │       ├── __tests__
-│   │       │   ├── userRouter.test.ts
-│   │       │   └── userService.test.ts
-│   │       ├── userController.ts
-│   │       ├── userModel.ts
-│   │       ├── userRepository.ts
-│   │       ├── userRouter.ts
-│   │       └── userService.ts
-│   ├── api-docs
-│   │   ├── __tests__
-│   │   │   └── openAPIRouter.test.ts
-│   │   ├── openAPIDocumentGenerator.ts
-│   │   ├── openAPIResponseBuilders.ts
-│   │   └── openAPIRouter.ts
-│   ├── common
-│   │   ├── __tests__
-│   │   │   ├── errorHandler.test.ts
-│   │   │   └── requestLogger.test.ts
-│   │   ├── middleware
-│   │   │   ├── errorHandler.ts
-│   │   │   ├── rateLimiter.ts
-│   │   │   └── requestLogger.ts
-│   │   ├── models
-│   │   │   └── serviceResponse.ts
-│   │   └── utils
-│   │       ├── commonValidation.ts
-│   │       ├── envConfig.ts
-│   │       └── httpHandlers.ts
-│   ├── index.ts
-│   └── server.ts
-├── tsconfig.json
-└── vite.config.mts
+# View database in Prisma Studio
+pnpm prisma studio
 ```
+
+### Development
+
+```bash
+# Start development server with hot reload
+pnpm start:dev
+
+# Start production server
+pnpm start:prod
+```
+
+## 🛠️ Available Scripts
+
+- `pnpm start:dev` - Start development server with hot reload
+- `pnpm start:prod` - Start production server
+- `pnpm build` - Build for production
+- `pnpm test` - Run tests
+- `pnpm test:cov` - Run tests with coverage
+- `pnpm check` - Run Biome linter and formatter
+
+## 📁 Project Structure
+
+```
+src/
+├── api/                    # API routes and controllers
+│   ├── auth/              # Authentication endpoints
+│   ├── healthCheck/       # Health check endpoint
+│   ├── submission/        # Survey submission endpoints
+│   └── user/              # User management endpoints
+├── common/                 # Shared utilities and middleware
+│   ├── database/          # Database configuration
+│   ├── middleware/        # Express middleware
+│   ├── models/            # Shared data models
+│   └── utils/             # Utility functions
+├── api-docs/              # OpenAPI documentation
+└── types/                 # TypeScript type definitions
+```
+
+## 🔐 Authentication
+
+The backend uses JWT tokens for authentication:
+
+- **Register**: `POST /api/auth/register`
+- **Login**: `POST /api/auth/login`
+- **Protected routes**: Use `Authorization: Bearer <token>` header
+
+## 📊 API Endpoints
+
+- **Health Check**: `GET /api/health`
+- **Authentication**: `POST /api/auth/*`
+- **Submissions**: `POST /api/submissions`
+- **Users**: `GET /api/users/*`
+- **API Documentation**: `GET /api-docs`
+
+## 🗄️ Database
+
+- **ORM**: Prisma
+- **Database**: SQLite (development) / PostgreSQL (production)
+- **Migrations**: Automatic with `pnpm prisma db push`
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests with coverage
+pnpm test:cov
+
+# Run tests in watch mode
+pnpm test --watch
+```
+
+## 🔧 Development Tools
+
+- **Linting**: Biome
+- **Testing**: Vitest
+- **Type Checking**: TypeScript
+- **API Documentation**: OpenAPI/Swagger
+
+## 🚀 Deployment
+
+```bash
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start:prod
+```
+
+## 📚 API Documentation
+
+Once the server is running, visit:
+
+- **Swagger UI**: `http://localhost:3001/api-docs`
+- **OpenAPI JSON**: `http://localhost:3001/api-docs/openapi.json`
+
+## 🔍 Troubleshooting
+
+### Common Issues
+
+1. **Database connection failed**
+
+   - Check `DATABASE_URL` in `.env`
+   - Ensure database is running
+   - Run `pnpm prisma generate`
+
+2. **Port already in use**
+
+   - Change `PORT` in `.env`
+   - Kill process using the port
+
+3. **JWT errors**
+   - Verify `JWT_SECRET` is set
+   - Check token expiration
